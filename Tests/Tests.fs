@@ -5,6 +5,7 @@ open Microsoft.VisualStudio.TestTools.UnitTesting
 open Implementation
 open Functions
 
+
 [<TestClass>]
 type TestNumberOfConnectives () =
 
@@ -17,6 +18,7 @@ type TestNumberOfConnectives () =
 
         Assert.AreEqual(0, result);
 
+
     [<TestMethod>]
     member this.NegatedAtomicFormula_ShouldReturn1 () =
         let p: Formula = AtomicFormula 'p';
@@ -25,6 +27,7 @@ type TestNumberOfConnectives () =
         let result: int = NumberOfConnectives formula
 
         Assert.AreEqual(1, result);
+
 
     [<TestMethod>]
     member this.ConjunctionOfAtomics_ShouldReturn1 () =
@@ -36,6 +39,7 @@ type TestNumberOfConnectives () =
 
         Assert.AreEqual(1, result);
 
+
     [<TestMethod>]
     member this.DisjunctionOfAtomics_ShouldReturn1 () =
         let p: Formula = AtomicFormula 'p';
@@ -46,6 +50,7 @@ type TestNumberOfConnectives () =
 
         Assert.AreEqual(1, result);
 
+
     [<TestMethod>]
     member this.ImplicationOfAtomics_ShouldReturn1 () =
         let p: Formula = AtomicFormula 'p';
@@ -55,6 +60,7 @@ type TestNumberOfConnectives () =
         let result: int = NumberOfConnectives formula
 
         Assert.AreEqual(1, result);
+
 
     [<TestMethod>]
     member this.TestComplicatedFormula () =
@@ -67,3 +73,15 @@ type TestNumberOfConnectives () =
 
         Assert.AreEqual(4, result);
 
+
+[<TestClass>]
+type TestGetSubformulas () =
+
+    [<TestMethod>]
+    member this.AtomicFormula_ShouldReturnItself () =
+        let p: Formula = AtomicFormula 'p'
+        let formula = p
+
+        let result: Set<Formula> = GetSubformulas formula
+
+        Assert.AreEqual(Set.empty.Add(p), result);

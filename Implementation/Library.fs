@@ -1,5 +1,6 @@
 ﻿namespace Implementation
 
+
 type Formula =
     | AtomicFormula of char
     | Negation of Formula
@@ -19,6 +20,7 @@ type Formula =
     static member (-->) (p: Formula, q: Formula) =
         Implication (p, q)
 
+
 module Functions =
     let rec NumberOfConnectives (formula: Formula) =
         match formula with
@@ -27,3 +29,6 @@ module Functions =
         | Conjunction (p, q) -> 1 + NumberOfConnectives p + NumberOfConnectives q
         | Disjunction (p, q) -> 1 + NumberOfConnectives p + NumberOfConnectives q
         | Implication (p, q) -> 1 + NumberOfConnectives p + NumberOfConnectives q
+
+    let GetSubformulas (formula: Formula) =
+        Set.empty.Add(formula)
