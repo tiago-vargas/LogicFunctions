@@ -25,3 +25,15 @@ type TestNumberOfConnectives () =
         let result: int = NumberOfConnectives formula
 
         Assert.AreEqual(1, result);
+
+    [<TestMethod>]
+    member this.ConjunctionOfAtomics_ShouldReturn1 () =
+        let p: Formula = AtomicFormula 'p';
+        let q: Formula = AtomicFormula 'q';
+        let formula: Formula = Conjunction (p, q);
+
+        let result: int = NumberOfConnectives formula
+
+        Assert.AreEqual(1, result);
+
+
