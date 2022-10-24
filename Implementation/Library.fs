@@ -5,6 +5,16 @@ type Formula =
     | Negation of Formula
     | Conjunction of Formula * Formula
     | Disjunction of Formula * Formula
+    | Implication of Formula * Formula
+
+    static member (/|) (p: Formula, q: Formula) =
+        Conjunction (p, q)
+
+    static member (|/) (p: Formula, q: Formula) =
+        Disjunction (p, q)
+
+    static member (-->) (p: Formula, q: Formula) =
+        Implication (p, q)
 
 module Functions =
     let NumberOfConnectives (formula: Formula) =
@@ -13,3 +23,4 @@ module Functions =
         | Negation p -> 1
         | Conjunction (p, q) -> 1
         | Disjunction (p, q) -> 1
+        | Implication (p, q) -> 1
