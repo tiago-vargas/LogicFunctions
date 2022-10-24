@@ -36,4 +36,14 @@ type TestNumberOfConnectives () =
 
         Assert.AreEqual(1, result);
 
+    [<TestMethod>]
+    member this.DisjunctionOfAtomics_ShouldReturn1 () =
+        let p: Formula = AtomicFormula 'p';
+        let q: Formula = AtomicFormula 'q';
+        let formula: Formula = Disjunction (p, q);
+
+        let result: int = NumberOfConnectives formula
+
+        Assert.AreEqual(1, result);
+
 
