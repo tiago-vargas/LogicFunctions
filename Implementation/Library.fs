@@ -7,20 +7,23 @@ type Formula =
     | Disjunction of Formula * Formula
     | Implication of Formula * Formula
 
-    static member (/|) (p: Formula, q: Formula) =
+    static member (~-) (p: Formula) =
+        Negation p
+
+    static member (.&) (p: Formula, q: Formula) =
         Conjunction (p, q)
 
-    static member (|/) (p: Formula, q: Formula) =
+    static member (.|) (p: Formula, q: Formula) =
         Disjunction (p, q)
 
     static member (-->) (p: Formula, q: Formula) =
         Implication (p, q)
 
 module Functions =
-    let NumberOfConnectives (formula: Formula) =
+    let rec NumberOfConnectives (formula: Formula) =
         match formula with
         | AtomicFormula p -> 0
-        | Negation p -> 1
-        | Conjunction (p, q) -> 1
-        | Disjunction (p, q) -> 1
-        | Implication (p, q) -> 1
+        | Negation p -> 1 + NumberOfConnectives p
+        | Conjunction (p, q) -> 1 + NumberOfConnectives p + NumberOfConnectives q
+        | Disjunction (p, q) -> 1 + NumberOfConnectives p + NumberOfConnectives q
+        | Implication (p, q) -> 1 + NumberOfConnectives p + NumberOfConnectives q
