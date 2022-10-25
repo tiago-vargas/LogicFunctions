@@ -34,3 +34,4 @@ module Functions =
         match formula with
         | AtomicFormula p -> Set.empty.Add(AtomicFormula p)
         | Negation p -> Set.empty.Add(formula).Add(p)
+        | Conjunction (p, q) -> Set.empty.Add(formula).Add(p).Add(q)

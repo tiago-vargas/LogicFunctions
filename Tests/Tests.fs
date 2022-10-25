@@ -95,3 +95,14 @@ type TestGetSubformulas () =
         let result: Set<Formula> = GetSubformulas formula
 
         Assert.AreEqual(Set.empty.Add(formula).Add(p), result);
+
+
+    [<TestMethod>]
+    member this.TestConjunctionOfAtomics () =
+        let p: Formula = AtomicFormula 'p'
+        let q: Formula = AtomicFormula 'q'
+        let formula = p .& q
+
+        let result: Set<Formula> = GetSubformulas formula
+
+        Assert.AreEqual(Set.empty.Add(formula).Add(p).Add(q), result);
