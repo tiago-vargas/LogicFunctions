@@ -117,3 +117,14 @@ type TestGetSubformulas () =
         let result: Set<Formula> = GetSubformulas formula
 
         Assert.AreEqual(Set.empty.Add(p .| q).Add(p).Add(q), result);
+
+
+    [<TestMethod>]
+    member this.TestImplicationOfAtomics () =
+        let p: Formula = AtomicFormula 'p'
+        let q: Formula = AtomicFormula 'q'
+        let formula = p --> q
+
+        let result: Set<Formula> = GetSubformulas formula
+
+        Assert.AreEqual(Set.empty.Add(p --> q).Add(p).Add(q), result);

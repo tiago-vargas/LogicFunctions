@@ -36,3 +36,4 @@ module Functions =
         | Negation p -> Set.empty.Add(formula).Add(p)
         | Conjunction (p, q) -> Set.empty.Add(formula).Add(p).Add(q)
         | Disjunction (p, q) -> Set.empty.Add(formula).Add(p).Add(q)
+        | Implication (p, q) -> Set.empty.Add(formula).Add(p).Add(q)
