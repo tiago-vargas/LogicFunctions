@@ -85,3 +85,13 @@ type TestGetSubformulas () =
         let result: Set<Formula> = GetSubformulas formula
 
         Assert.AreEqual(Set.empty.Add(p), result);
+
+
+    [<TestMethod>]
+    member this.NegatedAtomic_ShouldReturnItselfAndAtomic () =
+        let p: Formula = AtomicFormula 'p'
+        let formula = -p
+
+        let result: Set<Formula> = GetSubformulas formula
+
+        Assert.AreEqual(Set.empty.Add(formula).Add(p), result);

@@ -31,4 +31,6 @@ module Functions =
         | Implication (p, q) -> 1 + NumberOfConnectives p + NumberOfConnectives q
 
     let GetSubformulas (formula: Formula) =
-        Set.empty.Add(formula)
+        match formula with
+        | AtomicFormula p -> Set.empty.Add(AtomicFormula p)
+        | Negation p -> Set.empty.Add(formula).Add(p)
