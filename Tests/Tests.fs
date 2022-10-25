@@ -94,7 +94,7 @@ type TestGetSubformulas () =
 
         let result: Set<Formula> = GetSubformulas formula
 
-        Assert.AreEqual(Set.empty.Add(formula).Add(p), result);
+        Assert.AreEqual(Set.empty.Add(-p).Add(p), result);
 
 
     [<TestMethod>]
@@ -105,4 +105,15 @@ type TestGetSubformulas () =
 
         let result: Set<Formula> = GetSubformulas formula
 
-        Assert.AreEqual(Set.empty.Add(formula).Add(p).Add(q), result);
+        Assert.AreEqual(Set.empty.Add(p .& q).Add(p).Add(q), result);
+
+
+    [<TestMethod>]
+    member this.TestDisjunctionOfAtomics () =
+        let p: Formula = AtomicFormula 'p'
+        let q: Formula = AtomicFormula 'q'
+        let formula = p .| q
+
+        let result: Set<Formula> = GetSubformulas formula
+
+        Assert.AreEqual(Set.empty.Add(p .| q).Add(p).Add(q), result);
