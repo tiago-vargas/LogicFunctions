@@ -128,3 +128,22 @@ type TestGetSubformulas () =
         let result: Set<Formula> = GetSubformulas formula
 
         Assert.AreEqual(Set.empty.Add(p --> q).Add(p).Add(q), result);
+
+
+    [<TestMethod>]
+    member this.TestComplicatedFormula () =
+        let p: Formula = AtomicFormula 'p'
+        let q: Formula = AtomicFormula 'q'
+        let r: Formula = AtomicFormula 'r'
+        let formula = (p --> q .& p) .| -r
+
+        let result: Set<Formula> = GetSubformulas formula
+
+        Assert.AreEqual(Set.empty.Add((p --> q .& p) .| -r)
+                                 .Add(p --> q .& p)
+                                    .Add(p --> q)
+                                        .Add(p)
+                                        .Add(q)
+                                 .Add(-r)
+                                    .Add(r),
+                        result);

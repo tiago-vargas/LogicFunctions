@@ -30,10 +30,10 @@ module Functions =
         | Disjunction (p, q) -> 1 + NumberOfConnectives p + NumberOfConnectives q
         | Implication (p, q) -> 1 + NumberOfConnectives p + NumberOfConnectives q
 
-    let GetSubformulas (formula: Formula) =
+    let rec GetSubformulas (formula: Formula) =
         match formula with
         | AtomicFormula p -> Set.empty.Add(AtomicFormula p)
         | Negation p -> Set.empty.Add(formula).Add(p)
-        | Conjunction (p, q) -> Set.empty.Add(formula).Add(p).Add(q)
-        | Disjunction (p, q) -> Set.empty.Add(formula).Add(p).Add(q)
-        | Implication (p, q) -> Set.empty.Add(formula).Add(p).Add(q)
+        | Conjunction (p, q) -> Set.empty.Add(formula) |> Set.union (GetSubformulas p) |> Set.union (GetSubformulas q)
+        | Disjunction (p, q) -> Set.empty.Add(formula) |> Set.union (GetSubformulas p) |> Set.union (GetSubformulas q)
+        | Implication (p, q) -> Set.empty.Add(formula) |> Set.union (GetSubformulas p) |> Set.union (GetSubformulas q)
